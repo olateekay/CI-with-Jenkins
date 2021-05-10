@@ -64,3 +64,5 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 Then you will be asked which plugings to install - choose suggested plugins.
 
 ![alt text](image3.jpg)
+
+![alt text](image4.jpg)
