@@ -92,3 +92,28 @@ a. In the build triggers section, check the box beside 'Github hook trigger for 
 ![alt text](image8.jpg)
 
 b.Configure “Post-build Actions” to archive all the files then save.
+
+
+Now, go ahead and make some change in any file in your GitHub repository (e.g. README.MD file) and push the changes to the master branch.
+
+You will see that a new build has been launched automatically (by webhook) and you can see its results - artifacts, saved on Jenkins server.
+
+![alt text](image7.jpg)
+
+By default, the artifacts are stored on Jenkins server locally
+
+`ls /var/lib/jenkins/jobs/tooling_github/builds/<build_number>/archive/`
+
+![alt text](image9.jpg)
+
+## Step 3 - Configure Jenkins to copy files to NFS server via SSH
+
+Now we have our artifacts saved locally on Jenkins server, the next step is to copy them to our NFS server to `/mnt/apps` directory.
+
+Jenkins is a highly extendable application and there are 1400+ plugins available. We will need a plugin that is called “Publish Over SSH”.
+
+1. Install “Publish Over SSH” plugin.
+2. On main dashboard select “Manage Jenkins” and choose “Manage Plugins” menu item.
+
+3. On “Available” tab search for “Publish Over SSH” plugin and install it
+
