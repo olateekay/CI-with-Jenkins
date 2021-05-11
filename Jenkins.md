@@ -72,3 +72,23 @@ Then you will be asked which plugings to install - choose suggested plugins.
 We will configure a simple Jenkins job.This job will will be triggered by GitHub webhooks and will execute a ‘build’ task to retrieve codes from GitHub and store it locally on Jenkins server.
 
 1.Enable webhooks in your GitHub repository settings
+
+![alt text](image5.jpg)
+
+2.Go to Jenkins web console, click “New Item” and create a “Freestyle project”
+
+![alt text](image6a.jpg)
+
+To connect your GitHub repository, you will need to provide its URL, you can copy from the repository itself.
+In configuration of your Jenkins freestyle project choose Git repository, provide there the link to your Tooling GitHub repository and credentials (user/password) so Jenkins could access files in the repository.
+Save the configuration and run the build. For now we can only do it manually. Click “Build Now” button, if you have configured everything correctly, the build will be successfull and you will see it under #1
+
+![alt text](image6.jpg)
+
+3.To automatically trigger a build when a push is done on github, Click “Configure” your job/project and add these two configurations
+
+a. In the build triggers section, check the box beside 'Github hook trigger for GITscm polling'
+
+![alt text](image8.jpg)
+
+b.Configure “Post-build Actions” to archive all the files then save.
