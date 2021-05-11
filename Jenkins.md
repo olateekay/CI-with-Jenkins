@@ -117,3 +117,20 @@ Jenkins is a highly extendable application and there are 1400+ plugins available
 
 3. On “Available” tab search for “Publish Over SSH” plugin and install it
 
+![alt text](image10.jpg)
+
+4. Configure the job/project to copy artifacts over to NFS server.
+On main dashboard select “Manage Jenkins” and choose “Configure System” menu item.
+
+Scroll down to Publish over SSH plugin configuration section and configure it to be able to connect to your NFS server:
+
+
+a. Provide a private key (content of .pem file that you use to connect to NFS server via SSH/Putty)
+b. Arbitrary name
+c. Hostname - can be private IP address of your NFS server
+d. Username - ec2-user (since NFS server is based on EC2 with RHEL 8)
+Remote directory - /mnt/apps since our Web Servers use it as a mointing point to retrieve files from the NFS server
+Test the configuration and make sure the connection returns Success. Remember, that TCP port 22 on NFS server must be open to receive SSH connections.
+
+
+
