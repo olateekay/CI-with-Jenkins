@@ -133,4 +133,37 @@ Remote directory - /mnt/apps since our Web Servers use it as a mointing point to
 Test the configuration and make sure the connection returns Success. Remember, that TCP port 22 on NFS server must be open to receive SSH connections.
 
 
+![alt text](image11.jpg)
 
+Save the configuration, open your Jenkins job/project configuration page and add another one “Post-build Action”
+
+![alt text](image12.jpg)
+
+Configure it to send all files produced by the build into our previously defined remote directory. In our case we want to copy all files and directories - so we use **.
+
+![alt text](image13.jpg)
+
+Save this configuration and go ahead, change something in README.MD file in your GitHub Tooling repository.Webhook will trigger a new job and in the “Console Output” of the job you will find something like this:
+
+![alt text](image13.jpg)
+
+NB: If you get this instead; 
+
+```
+SSH: Connecting from host [localhost.localdomain]
+SSH: Connecting with configuration [love] ...
+SSH: Disconnecting configuration [love] ...
+ERROR: Exception when publishing, exception message [Permission denied]
+Archiving artifacts
+Finished: UNSTABLE
+
+```
+This means that jenkins doesn't have access to send all files to the `/mnt/apps` folder on your NFS server, you should change ownership of your `/mnt/apps` folder to the jenkins user. An elegant way of achieving this is to add a variable as a placeholder for your jenkins user.
+
+Run this command:
+`sudo chown -R $USER:$USER /mnt/apps`
+
+
+To make sure that the files in `/mnt/apps` have been udated - connect via SSH/Putty to your NFS server and check `README.MD` file
+
+Run `cat /mnt/apps/README.md`
