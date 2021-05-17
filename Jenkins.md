@@ -15,7 +15,7 @@ Enhance the architecture prepared in Project 8 by adding a Jenkins server, confi
 
 Here is how your update architecture will look like upon competion of this project:
 
-![alt text](image1.jpg)
+![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image1.png)
 
 
 ## Step 1 - Install Jenkins server
@@ -43,7 +43,7 @@ sudo systemctl status jenkins
 ```
 
 
-![alt text](image2.jpg)
+![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image2.png)
 
 5. By default Jenkins server uses TCP port 8080 - open it by creating a new Inbound Rule in your EC2 Security Group
 
@@ -63,9 +63,9 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
 Then you will be asked which plugings to install - choose suggested plugins.
 
-![alt text](image3.jpg)
+![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image3.png)
 
-![alt text](image4.jpg)
+![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image4.png)
 
 ## Step 2 - Configure Jenkins to retrieve source codes from GitHub using Webhooks
 
@@ -73,23 +73,23 @@ We will configure a simple Jenkins job.This job will will be triggered by GitHub
 
 1.Enable webhooks in your GitHub repository settings
 
-![alt text](image5.jpg)
+![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image5.png)
 
 2.Go to Jenkins web console, click “New Item” and create a “Freestyle project”
 
-![alt text](image6a.jpg)
+![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image6a.png)
 
 To connect your GitHub repository, you will need to provide its URL, you can copy from the repository itself.
 In configuration of your Jenkins freestyle project choose Git repository, provide there the link to your Tooling GitHub repository and credentials (user/password) so Jenkins could access files in the repository.
 Save the configuration and run the build. For now we can only do it manually. Click “Build Now” button, if you have configured everything correctly, the build will be successfull and you will see it under #1
 
-![alt text](image6.jpg)
+![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image6.png)
 
 3.To automatically trigger a build when a push is done on github, Click “Configure” your job/project and add these two configurations
 
 a. In the build triggers section, check the box beside 'Github hook trigger for GITscm polling'
 
-![alt text](image8.jpg)
+![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image8.png)
 
 b.Configure “Post-build Actions” to archive all the files then save.
 
@@ -98,13 +98,13 @@ Now, go ahead and make some change in any file in your GitHub repository (e.g. R
 
 You will see that a new build has been launched automatically (by webhook) and you can see its results - artifacts, saved on Jenkins server.
 
-![alt text](image7.jpg)
+![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image7.png)
 
 By default, the artifacts are stored on Jenkins server locally
 
 `ls /var/lib/jenkins/jobs/tooling_github/builds/<build_number>/archive/`
 
-![alt text](image9.jpg)
+![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image9.png)
 
 ## Step 3 - Configure Jenkins to copy files to NFS server via SSH
 
@@ -117,7 +117,7 @@ Jenkins is a highly extendable application and there are 1400+ plugins available
 
 3. On “Available” tab search for “Publish Over SSH” plugin and install it
 
-![alt text](image10.jpg)
+![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image10.png)
 
 4. Configure the job/project to copy artifacts over to NFS server.
 On main dashboard select “Manage Jenkins” and choose “Configure System” menu item.
@@ -133,19 +133,19 @@ Remote directory - /mnt/apps since our Web Servers use it as a mointing point to
 Test the configuration and make sure the connection returns Success. Remember, that TCP port 22 on NFS server must be open to receive SSH connections.
 
 
-![alt text](image11.jpg)
+![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image11.png)
 
 Save the configuration, open your Jenkins job/project configuration page and add another one “Post-build Action”
 
-![alt text](image12.jpg)
+![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image12.png)
 
 Configure it to send all files produced by the build into our previously defined remote directory. In our case we want to copy all files and directories - so we use **.
 
-![alt text](image13.jpg)
+![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image13.png)
 
 Save this configuration and go ahead, change something in README.MD file in your GitHub Tooling repository.Webhook will trigger a new job and in the “Console Output” of the job you will find something like this:
 
-![alt text](image13.jpg)
+![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image14.png)
 
 NB: If you get this instead; 
 
