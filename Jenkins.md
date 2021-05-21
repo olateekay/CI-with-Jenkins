@@ -137,15 +137,15 @@ Test the configuration and make sure the connection returns Success. Remember, t
 
 Save the configuration, open your Jenkins job/project configuration page and add another one “Post-build Action”
 
-![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image12.png)
+![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image12.JPG)
 
 Configure it to send all files produced by the build into our previously defined remote directory. In our case we want to copy all files and directories - so we use **.
 
-![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image13.png)
+![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image13.JPG)
 
 Save this configuration and go ahead, change something in README.MD file in your GitHub Tooling repository.Webhook will trigger a new job and in the “Console Output” of the job you will find something like this:
 
-![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image14.png)
+![alt text](https://github.com/olateekay/CI-with-Jenkins/blob/main/Images/image14.JPG)
 
 NB: If you get this instead; 
 
